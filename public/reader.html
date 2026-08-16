@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>阅读 - 论文阅读站</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="reader-body">
+  <header class="topbar reader-topbar">
+    <a class="btn" href="/">← 论文库</a>
+    <div class="reader-title">
+      <span id="paper-title"></span>
+      <input id="title-input" class="title-input hidden" placeholder="论文标题">
+    </div>
+    <div class="topbar-right">
+      <span id="page-indicator" class="muted"></span>
+      <button id="btn-edit-title" class="btn sm">改标题</button>
+    </div>
+  </header>
+
+  <main class="reader-main">
+    <div class="viewer-col">
+      <div class="viewer-toolbar">
+        <button id="prev" class="btn sm">‹</button>
+        <input id="page-input" type="number" min="1" value="1" class="page-input">
+        <span class="muted">/ <span id="page-total">?</span></span>
+        <button id="next" class="btn sm">›</button>
+        <span class="spacer"></span>
+        <button id="zoom-out" class="btn sm">−</button>
+        <span id="zoom-level" class="muted">100%</span>
+        <button id="zoom-in" class="btn sm">＋</button>
+        <button id="fit" class="btn sm">⛶ 适应宽度</button>
+        <button id="btn-panel" class="btn sm">📝 隐藏笔记面板</button>
+      </div>
+      <div id="viewer" class="viewer">
+        <canvas id="pdf-canvas"></canvas>
+      </div>
+    </div>
+
+    <aside class="panel-col">
+      <nav class="tabs">
+        <button class="tab active" data-tab="explain">🤖 讲解</button>
+        <button class="tab" data-tab="notes">📝 笔记</button>
+        <button class="tab" data-tab="ask">💬 问答</button>
+      </nav>
+
+      <div id="tab-explain" class="tab-body active">
+        <div id="explain-status" class="status hidden"></div>
+        <button id="btn-explain" class="btn primary block">✨ 生成新手友好讲解</button>
+        <div id="explain-meta" class="muted"></div>
+        <div id="explain-out" class="md-out"></div>
+      </div>
+
+      <div id="tab-notes" class="tab-body">
+        <div class="guide-progress" id="guide-progress"><div class="guide-progress-fill" style="width:0%"></div></div>
+        <div id="guide-steps"></div>
+        <div id="notes-status" class="status hidden"></div>
+        <h4 class="section-title">📖 术语表 <span class="muted">（读的过程中随手记）</span></h4>
+        <div class="glossary-add">
+          <input id="gl-term" placeholder="术语">
+          <input id="gl-expl" placeholder="一句话解释">
+          <button id="btn-gl-add" class="btn sm">＋</button>
+        </div>
+        <div id="glossary-list"></div>
+      </div>
+
+      <div id="tab-ask" class="tab-body">
+        <div id="ask-log" class="ask-log"></div>
+        <div class="ask-input-row">
+          <input id="ask-input" placeholder="问这篇论文任何问题，如：它的方法有什么缺点？">
+          <button id="btn-ask" class="btn primary">发送</button>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <script type="module" src="/reader.js"></script>
+</body>
+</html>

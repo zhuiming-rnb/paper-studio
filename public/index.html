@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>论文阅读站</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">📚 论文阅读站</div>
+    <div class="topbar-right">
+      <button id="btn-settings" class="btn">⚙️ 设置</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="dropzone" class="dropzone">
+      <div class="dz-inner">
+        <div class="dz-icon">📄</div>
+        <div>把论文 PDF 拖到这里，或 <span class="dz-link">点击选择文件</span></div>
+        <div class="dz-hint">只支持 PDF，最大 100MB · 文件只保存在你自己的电脑上</div>
+      </div>
+      <input type="file" id="file-input" accept=".pdf" hidden>
+    </section>
+
+    <div id="upload-status" class="status hidden"></div>
+
+    <section>
+      <h2 class="section-title">我的论文库 <span id="count" class="muted"></span></h2>
+      <div id="paper-list" class="paper-grid"></div>
+      <div id="empty-hint" class="empty hidden">还没有论文，先上传一篇吧 🎓</div>
+    </section>
+  </main>
+
+  <div id="settings-modal" class="modal hidden">
+    <div class="modal-card">
+      <h3>⚙️ DeepSeek API 设置</h3>
+      <p class="muted">
+        用于 AI 讲解论文。在 <a href="https://platform.deepseek.com" target="_blank" rel="noopener">platform.deepseek.com</a>
+        注册后，到「API Keys」页面创建一个 Key 粘贴到下面。Key 只保存在你自己电脑的
+        <code>data/config.json</code> 里，不会上传到任何地方。
+      </p>
+      <input type="password" id="key-input" placeholder="sk-..." autocomplete="off">
+      <div class="modal-actions">
+        <button id="btn-key-save" class="btn primary">保存</button>
+        <button id="btn-key-close" class="btn">关闭</button>
+      </div>
+      <div id="key-status" class="status hidden"></div>
+    </div>
+  </div>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

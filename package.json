@@ -1,0 +1,15 @@
+{
+  "name": "paper-studio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "本地论文阅读站：上传 PDF，边读边记六要素笔记、三遍阅读进度、术语表，并可让 AI 讲解论文。",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "multer": "^2.2.0",
+    "pdfjs-dist": "^6.2.108"
+  }
+}
