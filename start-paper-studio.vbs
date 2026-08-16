@@ -1,29 +1,32 @@
 ' Paper Studio - hidden launcher (no console window, no flash)
-' Run by wscript (GUI host, never shows a console).
+' Probe uses netstat (local, no HTTP) to avoid MSXML hangs.
 Option Explicit
 
-Dim ws, dir, port, siteUrl, probeUrl, running, i
+Dim ws, fso, dir, tmp, siteUrl, up, i
 Set ws = CreateObject("WScript.Shell")
+Set fso = CreateObject("Scripting.FileSystemObject")
 dir = "E:\workplace\paper-studio"
-port = 3000
-siteUrl = "http://127.0.0.1:" & port & "/"
-probeUrl = "http://127.0.0.1:" & port & "/api/papers"
+siteUrl = "http://127.0.0.1:3000/"
+tmp = ws.ExpandEnvironmentStrings("%TEMP%") & "\paper-studio-probe.txt"
 
 Function IsServerUp()
-  On Error Resume Next
-  Dim http
-  Set http = CreateObject("MSXML2.XMLHTTP")
-  http.open "GET", probeUrl, False
-  http.setRequestHeader "User-Agent", "paper-studio-launcher"
-  http.setTimeouts 1500, 1500, 1500, 1500
-  http.send ""
-  If Err.Number = 0 And http.status = 200 Then
-    IsServerUp = True
-  Else
-    IsServerUp = False
+  ws.Run "cmd /c netstat -ano -p TCP | findstr ""LISTENING"" | findstr "":3000"" > """ & tmp & """ 2>nul", 0, True
+  If fso.FileExists(tmp) Then
+    Dim f, content
+    Set f = fso.OpenTextFile(tmp, 1, False, 0)
+    If f.AtEndOfStream Then
+      content = ""
+    Else
+      content = f.ReadAll
+    End If
+    f.Close
+    fso.DeleteFile tmp, True
+    If content <> "" And InStr(content, ":3000") > 0 Then
+      IsServerUp = True
+      Exit Function
+    End If
   End If
-  Err.Clear
-  On Error GoTo 0
+  IsServerUp = False
 End Function
 
 ' Already running? Just open the site.
