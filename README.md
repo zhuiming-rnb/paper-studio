@@ -14,10 +14,16 @@
 
 ## 怎么启动
 
-**推荐方式：双击桌面上的「论文阅读站」快捷方式**——它会自动启动服务并打开网站；如果服务已经在运行，直接打开网页。
+**推荐方式：双击桌面上的「论文阅读站」快捷方式**——服务在后台静默启动（**不会弹出任何命令行窗口**），等就绪后自动打开网站；如果服务已经在运行，直接打开网页。
+
+**停止服务**（隐藏模式下没有可见窗口，用这个命令）：
 
 ```bash
-# 手动方式
+powershell -NoProfile -ExecutionPolicy Bypass -File E:\workplace\paper-studio\stop-paper-studio.ps1
+```
+
+```bash
+# 手动启动方式（会显示命令行窗口）
 cd E:\workplace\paper-studio
 npm start        # 或 node server.js
 ```
